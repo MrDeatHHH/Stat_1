@@ -213,7 +213,11 @@ int* solve(int &n,
 	return res;
 }
 
-int main()
+void usage(char* s){
+    std::cout<<"Usage: "<<s<<" <noise level> <image>\n";
+}
+
+int main(int argc, char* argv[])
 {
 	srand(time(NULL));
 	int const alphabet_size = 27;
@@ -254,15 +258,23 @@ int main()
 		}
 	}
 
-	fstream input;
-	input.open("input.txt", ios::in);
+	//fstream input;
+	//input.open("input.txt", ios::in);
+    double noise;
+    if(argc!=3){
+        usage(argv[0]);
+        return 0;
+    }
+    try{
+    	noise  = std::stod(argv[1]);
+    } 
+    catch(const std::invalid_argument& ia){
+        usage(argv[0]);
+        return 0;
+    }
 
-	// Input img
-	double noise = 0.;
-	input >> noise;
-	string fn = "";
-	getline(input, fn);
-	getline(input, fn);
+    // Input img
+	string fn = argv[2];
 	Mat image;
 	image = imread(fn, IMREAD_UNCHANGED);
 
