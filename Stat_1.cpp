@@ -230,6 +230,8 @@ int main()
 	for (int i = 0; i < alphabet_size * alphabet_size; ++i)
 		file >> freq[i];
 
+	file.close();
+
 	// Alphabet imgs
 	string folder = "alphabet/";
 	string suffix = ".png";
@@ -252,10 +254,17 @@ int main()
 		}
 	}
 
+	fstream input;
+	input.open("input.txt", ios::in);
+
 	// Input img
-	const double noise = 0.3;
+	double noise = 0.;
+	input >> noise;
+	string fn = "";
+	getline(input, fn);
+	getline(input, fn);
 	Mat image;
-	image = imread("input/but thence i learn and find the lesson true drugs poison him that so feil sick of you_0.3.png", IMREAD_UNCHANGED);
+	image = imread(fn, IMREAD_UNCHANGED);
 
 	const int height = image.size().height;
 	const int width = image.size().width;
